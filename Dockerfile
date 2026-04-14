@@ -4,8 +4,13 @@ WORKDIR /app
 
 ADD . /app
 
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN pip install --upgrade pip && \
-    pip install --trusted-host pypi.org \
+    pip install --no-build-isolation \
+                --trusted-host pypi.org \
                 --trusted-host pypi.python.org \
                 --trusted-host files.pythonhosted.org \
                 -r requirements.txt
